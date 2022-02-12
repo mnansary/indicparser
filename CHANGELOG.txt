@@ -4,3 +4,10 @@ Change Log
 0.0.1 (12/02/2022)
 -------------------
 - First Release
+
+0.0.2 (12/02/2022)
+-------------------
+- Basic Documentation 
+- Modifier removal
+- space correction
+- text mode parser

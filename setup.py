@@ -1,5 +1,13 @@
+
+#-*- coding: utf-8 -*-
+"""
+@author:Bengali.ai
+"""
+#------------------------------------------------------------
+from __future__ import print_function
+#------------------------------------------------------------
 from setuptools import setup, find_packages
- 
+
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'Intended Audience :: Education',
@@ -10,11 +18,12 @@ classifiers = [
  
 setup(
   name='indicparser',
-  version='0.0.1',
-  description='Grapheme Parser for indic language',
+  version='0.0.2',
+  description='Grapheme Parser for indic languages',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
+  long_description_content_type='text/markdown',
   url='https://github.com/mnansary/indicparser',  
-  author='Bengali.ai',
+  author='Bengali.AI',
   author_email='research.bengaliai@gmail.com',
   license='MIT', 
   classifiers=classifiers,
