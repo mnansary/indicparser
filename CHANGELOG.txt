@@ -11,3 +11,14 @@ Change Log
 - Modifier removal
 - space correction
 - text mode parser
+
+0.0.3 (14/02/2022)
+-------------------
+- Connector ending 
+- Exception case for component construction in bangla
+- Added test
+
+0.0.4 (14/02/2022)
+-------------------
+- pip test stable
+- added malformed word detection

@@ -16,6 +16,7 @@ class GraphemeParser(object):
                                 3. connector 
         '''
         # assignment
+        self.lang=language.iden
         self.vds=language.vowel_diacritics 
         self.cds=language.consonant_diacritics
         self.connector=language.connector
@@ -98,6 +99,40 @@ class GraphemeParser(object):
         if comps[-1]==" ":comps=comps[:-1]
         return comps
     
+    def get_components(self,decomp):
+        components=[]
+        for comp in decomp:
+            if comp in self.vds:
+                components.append(comp)
+            else:
+                cd_vals=[]
+                cd_val=None
+                for cd in self.cds:
+                    if cd in comp:
+                        cd_vals.append(cd)
+                if len(cd_vals)==1:
+                    cd_val=cd_vals[0]
+                else:
+                    max_len=0
+                    for cd in cd_vals:
+                        if len(cd)>max_len:
+                            max_len=len(cd)
+                            cd_val=cd
+                if cd_val is not None:    
+                    comp=comp.replace(cd_val,"")
+                # exceptional case for 'র্'
+                if cd_val not in ['র্']:
+                    components.append(comp)
+                    if cd_val is not None:
+                        components.append(cd_val)
+                else:
+                    components.append(cd_val)
+                    components.append(comp)
+        return components
+    
+        
+
+
     def process(self,text,return_graphemes=True,merge_spaces=False):
         '''
             useage:
@@ -115,29 +150,28 @@ class GraphemeParser(object):
 
         '''
         assert type(text)==str,"input data is not type text"
+        conn_end=False
+        if text[-1]==self.connector:
+            text=text[:-1]
+            conn_end=True
+
         try:
             decomp=[ch for ch in text]
             decomp=self.get_root_from_decomp(decomp)
+            componets=self.get_components(decomp)
+            if text!="".join(componets):
+                print(f"Malformed text-{text} possible text:{''.join(componets)}")
             if return_graphemes:
-                graphemes=self.get_graphemes_from_decomp(decomp)
-                if merge_spaces:
-                    graphemes=self.space_correction(graphemes)
-                return graphemes
+                result=self.get_graphemes_from_decomp(decomp)
             else:
-                components=[]
-                for comp in decomp:
-                    if comp in self.vds:
-                        components.append(comp)
-                    else:
-                        cd_val=None
-                        for cd in self.cds:
-                            if cd in comp:
-                                comp=comp.replace(cd,"")
-                                cd_val=cd
-                        components.append(comp)
-                        if cd_val is not None:
-                            components.append(cd_val)
-                return components
+                result=componets
+            # connection end
+            if conn_end:
+                result+=[self.connector]
+            # spacing
+            if merge_spaces:
+                result=self.space_correction(result)
+            return result
         except Exception as e:
             print(e)
             

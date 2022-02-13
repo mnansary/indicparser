@@ -55,6 +55,18 @@ languages.keys()
 ```
 > dict_keys(['bangla', 'malyalam', 'tamil', 'gujrati', 'panjabi', 'odiya', 'hindi'])
 
+* malformed text detection examples
+```python
+gp.process("পাশ্র্বের")
+```
+> Malformed text-পাশ্র্বের possible text:পার্শ্বের
+
+```python
+gp=graphemeParser("panjabi")
+gp.process("ਕੋਲਡਡਿੰ੍ਰਕਸ")
+```
+
+> Malformed text-ਕੋਲਡਡਿੰ੍ਰਕਸ possible text:ਕੋਲਡਡਿ੍ਰੰਕਸ
 
 # ABOUT
 * Authors: [Bengali.AI](https://bengali.ai/)
