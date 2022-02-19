@@ -5,6 +5,8 @@
 #------------------------------------------------------------
 from __future__ import print_function
 #------------------------------------------------------------
+# '\u200d','\u200c'
+
 class GraphemeParser(object):
     def __init__(self,language):
         '''
@@ -131,7 +133,14 @@ class GraphemeParser(object):
         return components
     
         
-
+    def no_space_char_addition(self,decomp):
+        for idx,comp in enumerate(decomp):
+            if idx<len(decomp)-1:
+                if decomp[idx+1] in ["\u200d","\u200c"]:
+                    decomp[idx]+=decomp[idx+1]
+                    decomp[idx+1]=None
+        decomp=[i for i in decomp if i is not None]
+        return decomp
 
     def process(self,text,return_graphemes=True,merge_spaces=False):
         '''
@@ -157,6 +166,9 @@ class GraphemeParser(object):
 
         try:
             decomp=[ch for ch in text]
+            # handle no - space
+            decomp=self.no_space_char_addition(decomp)
+            # root
             decomp=self.get_root_from_decomp(decomp)
             componets=self.get_components(decomp)
             if text!="".join(componets):

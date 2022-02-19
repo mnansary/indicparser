@@ -22,3 +22,8 @@ Change Log
 -------------------
 - pip test stable
 - added malformed word detection
+
+0.0.5 (19/02/2022)
+-------------------
+- encoding correction
+- no space char handling
