@@ -22,15 +22,6 @@ print("Graphemes:",graphemes)
 ```
 > Graphemes: [' ', ' ', 'শা', 'টি', 'কা', 'প', ' ', ' ', ' ', 'মা', 'র']
 
-
-* extracting grapheme root, consonant diacritics and vowel diacritics
-
-```python
-comps=gp.process(text,return_graphemes=False)
-print("Components:",comps)
-```
-> Components: [' ', ' ', 'শ', 'া', 'ট', 'ি', 'ক', 'া', 'প', ' ', ' ', ' ', 'ম', 'া', 'র']
-
 * extracting graphemes but merging spaces and clearing initial and ending space
 ```python
 graphemes=gp.process(text,merge_spaces=True)
@@ -55,18 +46,10 @@ languages.keys()
 ```
 > dict_keys(['bangla', 'malyalam', 'tamil', 'gujrati', 'panjabi', 'odiya', 'hindi'])
 
-* malformed text detection examples
-```python
-gp.process("পাশ্র্বের")
-```
-> Malformed text-পাশ্র্বের possible text:পার্শ্বের
 
-```python
-gp=graphemeParser("panjabi")
-gp.process("ਕੋਲਡਡਿੰ੍ਰਕਸ")
-```
-
-> Malformed text-ਕੋਲਡਡਿੰ੍ਰਕਸ possible text:ਕੋਲਡਡਿ੍ਰੰਕਸ
+# Normalization
+* For best results use normalized text before parsing
+* An example bangla unicode normalizer can be found [here](https://pypi.org/project/bnunicodenormalizer/)
 
 # ABOUT
 * Authors: [Bengali.AI](https://bengali.ai/)

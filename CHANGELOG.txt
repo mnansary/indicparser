@@ -27,3 +27,8 @@ Change Log
 -------------------
 - encoding correction
 - no space char handling
+
+0.0.6 (15/04/2022)
+-------------------
+- removed malformed word detection [not useful]
+- removed component calculation [not consistent]

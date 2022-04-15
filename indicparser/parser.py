@@ -5,7 +5,6 @@
 #------------------------------------------------------------
 from __future__ import print_function
 #------------------------------------------------------------
-# '\u200d','\u200c'
 
 class GraphemeParser(object):
     def __init__(self,language):
@@ -22,6 +21,7 @@ class GraphemeParser(object):
         self.vds=language.vowel_diacritics 
         self.cds=language.consonant_diacritics
         self.connector=language.connector
+        
         # error check -- type
         assert type(self.vds)==list,"Vowel Diacritics Is not a list"
         assert type(self.cds)==list,"Consonant Diacritics Is not a list"
@@ -55,7 +55,6 @@ class GraphemeParser(object):
 
                 r_decomp.append(sorted(list(first)))
                 comps = rest
-            
             # add    
             combs=[]
             for ridx in r_decomp:
@@ -69,7 +68,6 @@ class GraphemeParser(object):
                     else:
                         decomp[i]=None
             decomp=[d for d in decomp if d is not None]
-            
             return decomp
         else:
             return decomp
@@ -90,6 +88,15 @@ class GraphemeParser(object):
             for s in sub:
                 grapheme+=s
             graphemes.append(grapheme)
+        
+        # correct consonant diacs
+        graphemes=[g for g in graphemes if g is not None]
+        for idx,d in enumerate(graphemes):
+            if d in self.cds:
+                graphemes[idx-1]=graphemes[idx-1]+d
+                graphemes[idx]=None
+        graphemes=[g for g in graphemes if g is not None]
+        
         return graphemes
 
     def space_correction(self,comps):
@@ -101,37 +108,6 @@ class GraphemeParser(object):
         if comps[-1]==" ":comps=comps[:-1]
         return comps
     
-    def get_components(self,decomp):
-        components=[]
-        for comp in decomp:
-            if comp in self.vds:
-                components.append(comp)
-            else:
-                cd_vals=[]
-                cd_val=None
-                for cd in self.cds:
-                    if cd in comp:
-                        cd_vals.append(cd)
-                if len(cd_vals)==1:
-                    cd_val=cd_vals[0]
-                else:
-                    max_len=0
-                    for cd in cd_vals:
-                        if len(cd)>max_len:
-                            max_len=len(cd)
-                            cd_val=cd
-                if cd_val is not None:    
-                    comp=comp.replace(cd_val,"")
-                # exceptional case for 'র্'
-                if cd_val not in ['র্']:
-                    components.append(comp)
-                    if cd_val is not None:
-                        components.append(cd_val)
-                else:
-                    components.append(cd_val)
-                    components.append(comp)
-        return components
-    
         
     def no_space_char_addition(self,decomp):
         for idx,comp in enumerate(decomp):
@@ -142,15 +118,10 @@ class GraphemeParser(object):
         decomp=[i for i in decomp if i is not None]
         return decomp
 
-    def process(self,text,return_graphemes=True,merge_spaces=False):
+    def process(self,text,merge_spaces=False):
         '''
             useage:
                 text                :   the text to process
-                return_graphemes    :   
-                                        if return_graphemes=True (default):
-                                            * graphemes
-                                        else:                 
-                                            * grapheme root,consonant diacritics,vowel diacritics
                 merge_spaces        :   default:False
                                         if space merging is used
                                             *  multiple consecutive spaces will combine into one space 
@@ -159,31 +130,20 @@ class GraphemeParser(object):
 
         '''
         assert type(text)==str,"input data is not type text"
-        conn_end=False
-        if text[-1]==self.connector:
-            text=text[:-1]
-            conn_end=True
-
         try:
             decomp=[ch for ch in text]
             # handle no - space
             decomp=self.no_space_char_addition(decomp)
             # root
             decomp=self.get_root_from_decomp(decomp)
-            componets=self.get_components(decomp)
-            if text!="".join(componets):
-                print(f"Malformed text-{text} possible text:{''.join(componets)}")
-            if return_graphemes:
-                result=self.get_graphemes_from_decomp(decomp)
-            else:
-                result=componets
-            # connection end
-            if conn_end:
-                result+=[self.connector]
+            result=self.get_graphemes_from_decomp(decomp)
             # spacing
             if merge_spaces:
                 result=self.space_correction(result)
             return result
         except Exception as e:
-            print(e)
+            print("given text:",text,"extracted components:",decomp)
+            print("error:",e)
+            
+        
             
