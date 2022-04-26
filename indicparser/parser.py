@@ -93,8 +93,8 @@ class GraphemeParser(object):
         graphemes=[g for g in graphemes if g is not None]
         for idx,d in enumerate(graphemes):
             if d in self.cds:
-                graphemes[idx-1]=graphemes[idx-1]+d
-                graphemes[idx]=None
+                graphemes[idx]=graphemes[idx-1]+d
+                graphemes[idx-1]=None
         graphemes=[g for g in graphemes if g is not None]
         
         return graphemes
@@ -130,20 +130,20 @@ class GraphemeParser(object):
 
         '''
         assert type(text)==str,"input data is not type text"
-        try:
-            decomp=[ch for ch in text]
-            # handle no - space
-            decomp=self.no_space_char_addition(decomp)
-            # root
-            decomp=self.get_root_from_decomp(decomp)
-            result=self.get_graphemes_from_decomp(decomp)
-            # spacing
-            if merge_spaces:
-                result=self.space_correction(result)
-            return result
-        except Exception as e:
-            print("given text:",text,"extracted components:",decomp)
-            print("error:",e)
+        #try:
+        decomp=[ch for ch in text]
+        # handle no - space
+        decomp=self.no_space_char_addition(decomp)
+        # root
+        decomp=self.get_root_from_decomp(decomp)
+        result=self.get_graphemes_from_decomp(decomp)
+        # spacing
+        if merge_spaces:
+            result=self.space_correction(result)
+        return result
+        # except Exception as e:
+        #     print("given text:",text,"extracted components:",decomp)
+        #     print("error:",e)
             
         
             
