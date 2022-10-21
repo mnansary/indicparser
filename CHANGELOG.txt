@@ -36,3 +36,7 @@ Change Log
 0.0.7 (26/04/2022)
 -------------------
 - addition order correction
+
+0.0.8 (21/10/2022)
+-------------------
+- allow middle Connector

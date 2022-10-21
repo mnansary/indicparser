@@ -112,7 +112,7 @@ class GraphemeParser(object):
     def no_space_char_addition(self,decomp):
         for idx,comp in enumerate(decomp):
             if idx<len(decomp)-1:
-                if decomp[idx+1] in ["\u200d","\u200c"]:
+                if decomp[idx+1] in ["\u200d","\u200c"] and decomp[idx]!=self.connector:
                     decomp[idx]+=decomp[idx+1]
                     decomp[idx+1]=None
         decomp=[i for i in decomp if i is not None]
