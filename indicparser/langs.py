@@ -88,7 +88,7 @@ class nagri:
     iden                  =      "nagri"
     # for grapheme decomp
     vowel_diacritics       =    ['ꠣ', 'ꠤ', 'ꠥ', 'ꠦ', 'ꠧ']
-    consonant_diacritics   =    ['ꠋ', 'ꠂ'] 
+    consonant_diacritics   =    ['ꠋ', 'ꠂ']+['꠬'] # alternate hosonto 
     connector              =    '꠆'
     
 #------------------------------------------------------------------------------------------------------------------------------------------------------
