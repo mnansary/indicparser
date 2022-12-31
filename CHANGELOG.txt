@@ -40,3 +40,7 @@ Change Log
 0.0.8 (21/10/2022)
 -------------------
 - allow middle Connector
+
+0.0.9 (31/12/2022)
+-------------------
+- added sylheti nagri

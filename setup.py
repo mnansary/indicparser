@@ -18,7 +18,7 @@ classifiers = [
  
 setup(
   name='indicparser',
-  version='0.0.8',
+  version='0.0.9',
   description='Grapheme Parser for indic languages',
   long_description=open('README.md',encoding="utf-8").read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',

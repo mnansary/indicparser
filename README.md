@@ -44,7 +44,7 @@ print("Graphemes:",graphemes)
 from indicparser import languages
 languages.keys()
 ```
-> dict_keys(['bangla', 'malyalam', 'tamil', 'gujrati', 'panjabi', 'odiya', 'hindi'])
+> dict_keys(['bangla', 'malyalam', 'tamil', 'gujrati', 'panjabi', 'odiya', 'hindi','nagri'])
 
 
 # Normalization
