@@ -48,3 +48,7 @@ Change Log
 0.0.10 (31/12/2022)
 -------------------
 - added sylheti nagri alternate hosonto
+
+0.1.0 (26/05/2024)
+-------------------
+- added proper citation
